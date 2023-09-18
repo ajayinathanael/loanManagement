@@ -1,0 +1,132 @@
+<%- include('partials/header') %>
+
+<!-- navbar --> 
+<link rel="stylesheet" href="css/index.css">
+<nav class="navbar navbar-expand-lg bg-dark navbar-dark py-3 fixed-top"> 
+    <div class="container">
+        <a href="#" class="navbar-brand">Loan Management System</a>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#ran">
+          <span class="navbar-toggler-icon"></span>
+        </button> 
+
+        <div class="collapse navbar-collapse" id="ran">
+          <ul class="navbar-nav ms-auto"> 
+ 
+            <!-- signed in -->
+            <% if(user){ %>
+            <li class="navbar-item">
+                <a href="/dashboard" class="nav-link"> <%= user.firstname %> <%= user.lastname %> </a>
+            </li>
+            <li class="navbar-item">
+                <a href="/dashboard" class="nav-link">My loan status </a>
+            </li>
+            <li class="navbar-item">
+              <a href="/logout" class="nav-link">Logout</a>
+            </li>
+            <%}else{ %>
+
+            <!-- not logged in -->
+                <li class="navbar-item">
+                  <a href="/signup" class="nav-link">Signup</a>
+                </li>
+                <li class="navbar-item">
+                  <a href="/login" class="nav-link">Login</a>
+                </li>
+            <%} %>
+
+
+          </ul>
+        </div>
+    </div>
+</nav>
+        
+<!-- header -->
+<section class="bg-dark text-light p-5 p-lg-0 pt-lg-5 text-center text-sm-start" >
+    <div class="container">
+      <div class="pt-4 d-sm-flex align-items-center justify-content-between">
+        <div>
+          <h1>Fastest way to get a <span class="text-warning">Loan.</span></h1>
+          <p class="lead my-4">A platform that helps you apply and track your loan easily.</p>
+          <!-- <button class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#enroll"> -->
+
+            <% if(user){ %>
+              <a class="btn btn-primary btn-lg" href="/apply/<%= user._id %>">Apply now!</a>
+            <%}else{ %>
+              <a class="btn btn-primary btn-lg" href="/login">Login now!</a> 
+            <%} %>
+
+
+        </div>
+        <img class="img-fluid w-50 d-none d-sm-block" src="images/money1.jpg" alt="">
+      </div>
+    </div>
+  </section>
+
+ <!-- Newsletter -->
+ <section class="bg-primary text-light p-5">
+    <div class="container">
+      <div class="d-md-flex justify-content-between align-items-center">
+        <h3 class="d-mb-3 mb-md-0">Sign Up for Our Newsletter</h3>
+        <div class="input-group news-input">
+          <input type="text" class="form-control" placeholder="Your email">
+          
+          <a class="btn btn-secondary" href="/thank-you">Send</a>
+
+          <!-- <button class="btn btn-dark btn-lg" type="button">Signup</button> -->
+          
+        </div>
+      </div>
+    </div>
+  </section>
+ 
+<!-- Services -->
+<section class="p-5 text-center">
+    <div class="container">
+        <h1>Our Services</h1>
+       
+        <div class="pt-4 d-flex align-items-center justify-content-between">
+            <div>
+                <img src="../images/rocket.png" style="width: 25%;" alt="fast">
+                <h4>Fast</h4>
+            </div>
+            <div>
+                <img src="https://media.istockphoto.com/id/689364180/vector/smiling-cartoon-face-positive-people-emotion-icon.jpg?s=170667a&w=0&k=20&c=04VuVoBoD85pQsdYjbq6MteUqI7G2xfLJ4NpfBwbJAE=" style="width: 50%;" alt="easy">
+                <h4>Easy</h4>
+            </div>
+            <div>
+                <img src="data:image/png;base64,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" 
+                alt="Handshake"
+                style="width: 75%;"
+                >
+                <h4>Reliable</h4>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- About me -->
+<section id="learn" class="p-5 bg-primary text-light">
+    <div class="container">
+      <div class="row align-items-center justify-content-between">
+          <div class="col-md">
+            <img src="images/maria.jpg" class="img-fluid rounded-5" alt="">
+          </div>
+        <div class="col-md p-5">
+          <h2>About Me</h2>
+          <p class="lead">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta earum dolorum amet expedita quas obcaecati.
+          </p>
+          <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus dolores nobis dolorum esse inventore labore debitis at ullam nulla odio cupiditate ratione cumque delectus distinctio a vel, mollitia consectetur reiciendis!
+          </p>
+          <a href="#" class="btn btn-light mt-3">Read more
+            <i class="bi bi-chevron"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+<%- include('partials/footer') %>

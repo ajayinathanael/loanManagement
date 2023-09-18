@@ -1,0 +1,51 @@
+<%- include('partials/header') %>
+ 
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg bg-dark navbar-dark py-3">
+    <div class="container">
+        
+        <a href="/" class="navbar-brand">
+            <img src="../images/dave.jpg" width="30" height="30" class="d-inline-block align-top" alt="">
+            Loan request form
+        </a>
+
+    </div>
+</nav>
+ 
+ 
+<div class="header container pt-3">
+    <h2>Loan request for <%= user.firstname %> <%= user.lastname %> </h2>
+</div>
+
+<div class="container">
+    <form action="/apply" method="POST" enctype="multipart/form-data">
+        <div class="row">
+            
+            <div class="col-md-10 mb-3 form-group">
+                <input type="text" class="form-control" placeholder="Address" name="address" required>
+            </div>
+
+            <div class="col-md-10 mb-3 form-group">
+               Date of Birth <input type="date" class="form-control" placeholder="Date of Birth" name="dob" required>
+            </div>
+
+            <div class="col-md-10 mb-3 form-group">
+                <textarea name="reason" placeholder="Why do you need a loan?" class="form-control" rows="20" cols="50" required></textarea>
+            </div>
+            
+            <div class="col-md-10 mb-3 form-group">
+                <p>Upload your means of Identification</p>
+                <input type="file" name="photos" class="form-control text-black" required>
+                <br>
+
+            </div>
+            
+            <div class="col-md-10 mb-3 form-group">
+                <a href="/" class="btn btn-warning">Cancel</a>
+                <button type="submit" class="btn btn-primary">Proceed</button>
+            </div>
+       
+    </form>
+</div>
+
+<%- include('partials/footer') %>

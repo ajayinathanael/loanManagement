@@ -1,0 +1,277 @@
+<%- include('partials/header') %>
+
+<link rel="stylesheet" href="css/dashboard.css">
+<div class="d-flex" id="wrapper">
+     
+    <!-- sidebar -->
+    <div class="bg-white " id="sidebar-wrapper">
+
+      <div class="sidebar-heading text-center py-4 primary-text fs-4 fw-bold text-uppercase border-bottom">
+        <i class="fas fa-user-secret me-2"></i> <%= user.firstname %>
+      </div>
+
+      <div class="list-group list-group-flush my-3">
+        <a href="" class="list-group-item list-group-item-action bg-transparent second-text active">
+          <i class="fas fa-tachometer-alt me-2"></i> Dashboard
+        </a>
+        <a href="#settings" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">
+          <i class="fas fa-project-diagram me-2"></i> Settings
+          <!-- <i class="fas fa-cogs"> Settings -->
+        </a>
+        <!-- admin -->
+        <a href="signup.html" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">
+          <i class="fas fa-chart-line me-2"></i> New user
+        </a>
+        <!-- admin -->
+
+        <a href="newRoom.html" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">
+          <i class="fas fa-shopping-cart me-2"></i> New Room
+        </a>
+        <a href="" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">
+          <i class="fas fa-paperclip me-2"></i> Reports
+        </a>
+        <a href="" class="list-group-item list-group-item-action bg-transparent second-text fw-bold">
+          <i class="fas fa-comment-dots me-2"></i> Chat
+        </a>
+        <a href="/logout" class="list-group-item list-group-item-action bg-transparent second-text fw-bold active">
+          <i class="fas fa-sign-out-alt fa-sm"></i> Logout
+        </a>
+      </div>
+    </div>
+    
+
+    <div id="page-content-wrapper">
+      <!-- navbar and dropdown -->
+      <nav class="navbar navbar-expand-lg navbar-light bg-transparent py-4 px-4">
+        
+        <div class="d-flex align-items-center">
+          <i class="fas fa-align-left primary-text fs-4 me-3" id="menu-toggle"></i>
+          <h2 class="fs-2 m-0">Welcome <%= user.firstname %> <%= user.lastname %> </h2>
+        </div>
+  
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+              <a href="/" class="nav-link second-text fw-bold"role="button">
+                <span class="mx-2">Home</span>
+              </a>
+          </ul>
+        
+      </nav>
+  
+
+      <!-- inside content -->
+      <div class="container-fluid px-4">
+        
+        <!-- first content ADMIN -->
+        <!-- <div class="row my-2 g-3">
+          <div class="col-md-3">
+            <div class="p-3 bg-white shadow-sm d-flex justify-content-around align-items-center rounded">
+              <div>
+                <h3 class="fs-2">270</h3>
+                <p class="fs-5">Products</p>
+              </div>
+              <i class="fas fa-gift fs-1 primary-text border rounded-full secondary-bg p-3"></i>
+            </div>
+          </div>
+
+          <div class="col-md-3">
+            <div class="p-3 bg-white shadow-sm d-flex justify-content-around align-items-center rounded">
+              <div>
+                <h3 class="fs-2">4920</h3>
+                <p class="fs-5">sales</p>
+              </div>
+              <i class="fas fa-hand-holding fs-1 primary-text border rounded-full secondary-bg p-3"></i>
+            </div>
+          </div>
+
+          <div class="col-md-3">
+            <div class="p-3 bg-white shadow-sm d-flex justify-content-around align-items-center rounded">
+              <div>
+                <h3 class="fs-2">3899</h3>
+                <p class="fs-5">Delivery</p>
+              </div>
+              <i class="fas fa-truck fs-1 primary-text border rounded-full secondary-bg p-3"></i>
+            </div>
+          </div>
+
+          <div class="col-md-3">
+            <div class="p-3 bg-white shadow-sm d-flex justify-content-around align-items-center rounded">
+              <div>
+                <h3 class="fs-2">%25</h3>
+                <p class="fs-5">Increase</p>
+              </div>
+              <i class="fas fa-chart-line fs-1 primary-text border rounded-full secondary-bg p-3"></i>
+            </div>
+          </div>
+        </div> -->
+ 
+        <!-- second content (settings) -->
+        <div class="row my-5" id="settings">
+          <h3 class="mb-3">Your Information </h3>
+ 
+          <div class="bg-white">
+            <p><%= user.firstname %></p>
+            <p><%= user.lastname %></p>
+            <p><%= user.username %></p>
+            <h6>Role: <%= user.role %></h6>
+            
+            <!-- if user is not admin -->
+        <% if(user.role !== 'admin'){ %>
+          <% myStatus.forEach((loan)=>{ %>
+            <h6>Loan Status: <%= loan.status %>  </h6> 
+            <h6>Loan Id: <%= loan._id %>  </h6> 
+          <% }); %>
+        <% } %>
+          </div>
+
+        </div>
+
+        <!-- third content (table recent users) ADMIN -->
+        <% if(user.role == 'admin'){ %>
+        <div class="row my-5">
+          <h3 class="fs-4 mb-3">All users</h3>
+          <div class="col">
+
+            <table class="table bg-white rounded shadow-sm">
+
+              <thead>
+                <tr>
+                  <th scope="col">Lastname</th>
+                  <th scope="col">Firstname</th>
+                  <th scope="col">Role</th>
+                  <!-- <th scope="col">Loan Status</th>
+                  <th scope="col">Action</th> -->
+                </tr>
+              </thead>
+
+              <!-- loop -->
+              <tbody>
+              <% allUsers.forEach((users)=>{ %>
+                <tr>
+                  <td><%= users.lastname %></td>
+                  <td><%= users.firstname %></td>
+                  <td><%= users.role %></td>
+                  <!-- if user is not admin -->
+                  <!-- <% if(users.role !== 'admin'){ %>
+                      <td>Loan Status: <%= users.loan.status %>  </td>
+                    <td><a class="btn bg-info text-white" href="/approve/<%= users._id %>">Approve</a></td>
+                    <td><a class="btn bg-danger text-white" href="/reject/<%= users._id %>">Reject</a></td>
+                  <% } %> -->
+                </tr>
+  
+                <!-- <tr>
+                  <th scope="row">2</th>
+                  <td>TV</td>
+                  <td>Micheal</td>
+                  <td>$500</td>
+                  <td class="btn bg-info text-white">Approve</td>
+                  <td class="btn bg-danger text-white">Reject</td>
+                </tr>
+  
+                <tr>
+                  <th scope="row">3</th>
+                  <td>TV</td>
+                  <td>Micheal</td>
+                  <td>$500</td>
+                  <td class="btn bg-info text-white">Approve</td>
+                  <td class="btn bg-danger text-white">Reject</td>
+                </tr>
+  
+                <tr>
+                  <th scope="row">4</th>
+                  <td>TV</td>
+                  <td>Micheal</td>
+                  <td>$500</td>
+                  <td class="btn bg-info text-white">Approve</td>
+                  <td class="btn bg-danger text-white">Reject</td>
+                </tr> -->
+              <% }) %>
+            </tbody>
+            <!-- loop ends -->
+
+            </table>
+          </div>
+        </div>
+        <% } %>
+
+        <!-- fourth content ADMIN Decision panel -->
+        <!-- <div class="row my-5">
+          <h3 class="fs-4 mb-3">Loan decision</h3>
+          <div class="col">
+            <table class="table bg-white rounded shadow-sm">
+
+              <thead>
+                <tr>
+                  <th scope="col" width="50">#</th>
+                  <th scope="col">Product</th>
+                  <th scope="col">Customer</th>
+                  <th scope="col">Price</th>
+                  <th scope="col">Action</th>
+                </tr>
+              </thead>
+
+              Loop start
+              <tbody>
+                <% myStatus.forEach((loan)=>{ %>
+                <tr>
+
+                  <th scope="row">1</th>
+                  <td>TV</td>
+                  <td><%= loan.status %></td>
+                  <td><%= loan.status %></td>
+                </tr>
+
+                <tr>
+                  <th scope="row">2</th>
+                  <td>TV</td>
+                  <td>Micheal</td>
+                  <td>$500</td>
+                  <td class="btn btn-danger text-dark">Delete</td>
+                </tr>
+
+                <tr>
+                  <th scope="row">3</th>
+                  <td>TV</td>
+                  <td>Micheal</td>
+                  <td>$500</td>
+                  <td class="btn btn-danger text-dark">Delete</td>
+                </tr>
+
+                <tr>
+                  <th scope="row">4</th>
+                  <td>TV</td>
+                  <td>Micheal</td>
+                  <td>$500</td>
+                  <td class="btn btn-danger text-dark">Delete</td>
+                </tr>
+                <% }) %>
+
+              </tbody>
+              Loop end
+
+            </table>
+          </div>
+        </div> -->
+
+      </div>
+
+    </div>
+
+  </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
+
+    <script>
+      var el = document.getElementById("wrapper");
+      var toggleButton = document.getElementById("menu-toggle");
+
+      toggleButton.onclick = function () {
+        el.classList.toggle("toggled");
+      }
+
+    </script>
+
+<%- include('partials/footer') %>

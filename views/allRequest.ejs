@@ -1,0 +1,43 @@
+<%- include('partials/header') %>
+
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg bg-dark navbar-dark py-3">
+    <div class="container">
+        
+        <a href="/" class="navbar-brand">
+            <img src="../images/dave.jpg" width="30" height="30" class="d-inline-block align-top" alt="">
+            Loan Management System
+        </a>
+
+    </div>
+</nav>
+
+<!-- Available Rooms + description -->
+<section class="my-4">
+    
+    <h1 class="mb-4">My requests</h1>
+
+    <div class="row g-5">
+        <% loans.forEach((loan)=>{ %>
+ 
+        <div class="my-4 col col-12 col-lg-4 col-md-12 col-sm-12">
+            <div class="card card-light">
+                    <img class="card-img-top" src="../uploads/<%= loan.photos %>" alt="">
+                <div class="card-body">
+                    <h2 class="card-title"><%= loan.address %></h2>
+                    <p class="card-subtitle text-muted mb-3">Date of birth: <%= loan.dob %></p>
+                    <p class="card-subtitle text-muted mb-3">Reason for loan: <%= loan.reason %></p>
+                </div>
+                <div class="d-flex justify-content-end">
+                        <button class="btn btn-danger rounded-pill p-3 mb-2 mx-3">
+                            <a href="/myrequests/loanDetail/<%= loan._id %>" style="text-decoration: none; color: white;">continue</a>
+                        </button>
+            </div>
+            </div>
+        </div>
+        <% }); %>
+
+    </div>
+</section>
+
+<%- include('partials/footer') %>

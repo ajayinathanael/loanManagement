@@ -1,0 +1,1 @@
+A little and amazing loan management application. Built with Node, express, and Ejs

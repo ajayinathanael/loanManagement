@@ -1,0 +1,18 @@
+Apply
+
+one request
+all request - ALL loan, continue (hidden)
+
+hidden route- get particular loan request(btn), update loan with user id, redirect to loan status
+
+loan status (dashboard)- populate, check db for populate, display
+ 
+
+pitugifi@mailinator.com
+nathanael
+
+ADMIN
+
+user has loan in db
+upload
+status - approve or reject
